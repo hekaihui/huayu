@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="in">
+    <!--查询表-->
+    <select id="select" resultType="Indents"  >
+        select *  from indent
+    </select>
+    <!--查询一条-->
+    <select id="selectbyid" resultType="Indents" parameterType="Indents"  >
+        select *  from indent where indentid=#{value}
+    </select>
+    <!--修改一条-->
+    <update id="update" parameterType="Indents">
+        update  indent  set time=#{time},userid=#{userid},money=#{money},nomber=#{nomber},date=#{date}  where indentid=#{indentid}
+    </update>
+
+    <!--删除一条-->
+    <delete id="delete" parameterType="Indents" >
+        delete from indent where indentid=#{indentid}
+    </delete>
+    <!--添加一条-->
+    <insert id="insert"  parameterType="Indents">
+        <selectKey keyProperty="indentid" resultType="java.lang.String" order="BEFORE">
+            select uuid()
+        </selectKey>
+        insert into indent(indentid,time,userid,money,nomber,date)values (#{indentid},#{time},#{userid},#{money},#{nomber},#{date})
+    </insert>
+</mapper>
